@@ -207,6 +207,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putInt("player1Points", player1Points);
         outState.putInt("player2Points", player2Points);
         outState.putBoolean("player1Turn", player1Turn);
+
+        for(int i = 0; i < 3; ++i)
+        {
+            for(int j = 0; j < 3; ++j)
+            {
+                if(buttons[i][j].getDrawable().equals(troyIcon))
+                {
+                    outState.putInt("tile" + i + j, R.drawable.troy_icon);
+                }
+                else if(buttons[i][j].getDrawable().equals(timmoIcon))
+                {
+                    outState.putInt("tile" + i + j, R.drawable.timmo_icon);
+                }
+                else
+                {
+                    outState.putInt("tile" + i + j, R.drawable.null_icon);
+                }
+            }
+        }
     }
 
     @Override
@@ -218,5 +237,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         player1Points = savedInstanceState.getInt("player1Points");
         player2Points = savedInstanceState.getInt("player2Points");
         player1Turn = savedInstanceState.getBoolean("player1Turn");
+
+        for(int i = 0; i < 3; ++i)
+        {
+            for(int j = 0; j < 3; ++j)
+            {
+                buttons[i][j].setImageDrawable(getResources().getDrawable(savedInstanceState.getInt("tile" + i + j)));
+            }
+        }
     }
 }
