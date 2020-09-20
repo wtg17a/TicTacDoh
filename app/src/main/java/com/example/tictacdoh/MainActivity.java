@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private MediaPlayer winSound;
+    private MediaPlayer loseSound;
 
     private ImageButton[][] buttons = new ImageButton[3][3];
 
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        winSound = MediaPlayer.create(MainActivity.this, R.raw.success);
+        loseSound = MediaPlayer.create(MainActivity.this, R.raw.failure);
 
         textViewPlayer1 = findViewById(R.id.text_view_p1);
         textViewPlayer2 = findViewById(R.id.text_view_p2);
@@ -91,15 +98,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if(player1Turn)
             {
                 player1Win();
+                winSound.start();
             }
             else
             {
                 player2Win();
+                winSound.start();
             }
         }
         else if(roundCount == 9)
         {
             draw();
+            loseSound.start();
         }
         else
         {
